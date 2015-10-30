@@ -29,6 +29,7 @@ if (!is_multisite()) {
 
 /* Defining Shadow Blog's Site ID */
 define('CFGP_SITE_ID', apply_filters('cfgp_define_site_id', 999999));
+define('CFGP_BLOG_ID', apply_filters('cfgp_define_blog_id', 19));
 define('CFGP_SITE_DOMAIN', apply_filters('cfgp_define_domain_name', 'cf-global-posts.example.com'));
 define('CFGP_SITE_IMPORT_INCREMENT', apply_filters('cfgp_define_import_increment', 10));
 
@@ -171,6 +172,12 @@ function cfgp_add_post_save_actions() {
  * @return bool/int
  */
 function cfgp_get_shadow_blog_id() {
+	/* Allow an override here */
+	if ( defined( 'CFGP_BLOG_ID' ) && CFGP_BLOG_ID )
+	{
+		return CFGP_BLOG_ID;
+	}
+
 	/* Utilize the domain to get the blog id */
 	$cfgp_blog_id = get_blog_id_from_url(CFGP_SITE_DOMAIN);
 	
